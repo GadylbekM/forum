@@ -1,0 +1,59 @@
+{{template "header"}}
+
+<div class="sidebar">
+    <div class="sidebar_inner">
+
+        <div class="sidebar_list">
+            {{if eq .Name "Guest"}}
+                <a href="/login">Sign in</a>
+                
+            {{else}}
+                
+                <a href="/my_posts">My Posts</a>
+                <a href="/liked_posts">Liked Posts</a>
+                <a href="/createPost">Create Post</a>
+                <a href="/exit">Exit</a>
+            {{end}}
+        </div>
+    </div>
+</div>
+<div class="content_notify">
+    <!-- Display the user's notifications here -->
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+    <div class="notifications">
+        
+         <h2>Your Notifications</h2>
+
+        <div class="notifications_inner">
+            <div class="left_notify">
+                <h3>People who recently reacted to  your post</h1>
+                   
+                <ul>
+                    {{range .Notifications}}
+                        <li><a href="/post/?id={{.PostId}}">{{.Username}} {{.Type}} </a></li>
+                    {{end}}
+                </ul>
+            </div>
+            <div class="right_notify">
+                <h3>People who recently liked your comment</h1>
+                <ul>
+                    {{range .Notification_comments}}
+                        <li><a href="/post/?id={{.PostId}}">{{.Username}} {{.Type}} </a></li>
+                    {{end}}
+                </ul>
+            </div>
+            
+        </div>
+      
+    </div>
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

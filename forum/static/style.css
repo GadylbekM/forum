@@ -1,0 +1,613 @@
+body{
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    background: #333333;
+
+}
+
+
+.container{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+.notifications_inner{
+    background: white;
+}
+.content_inner{
+    background: white;
+}
+/*NAvbar start*/
+.nav{
+    background: #333333;
+    padding: 20px;
+    justify-content: space-between;
+
+}
+
+.nav_inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.nav_logo h1{
+    color: #ffffff;
+    margin-left: 20px
+
+}
+.nav_btn{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: block;
+    cursor: pointer;
+    z-index: 20;
+}
+.nav_btn span{
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #1F65BF;
+    transition: 0.4s;
+
+
+}
+.nav_btn::after,
+.nav_btn::before{
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    content: "";
+    background: #1F65BF;
+    transition: 0.4s;
+} 
+.nav_btn::after{
+    top: 10px;
+
+}
+.nav_btn::before{
+    top: 20px;
+}
+.nav_btn.active span{
+    width: 0%;
+}
+.nav_btn.active::after{
+    transform: rotate(45deg);
+}
+.nav_btn.active::before{
+    top: 10px;
+    transform: rotate(135deg);
+}
+.logo {
+    /*left: 50px;*/
+    /*position: relative;*/
+    color: #f5f6f7;
+    font-weight: 700;
+    font-size: 2em;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: 0.6s;
+}
+.notifications img{
+    width: 20px;
+    display: block;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    border: 5px solid rgb(250, 242, 242);
+    background: white;
+}
+.history img{
+    width: 20px;
+    display: block;
+    margin-left: 20px;
+    border: 5px solid rgb(250, 242, 242);
+    background: white;
+
+
+}
+.sidebar{
+    color: white;
+    text-align: center;
+    position: absolute;
+   
+}
+.sidebar.open{
+    transform: translateX(0%);
+    text-align: center;
+}
+.sidebar_inner{
+    display: flex;
+    text-align: center;
+    padding: 20px 50px;
+    justify-content: space-between;
+}
+.sidebar_list{
+    /* justify-content: space-between; */
+    padding: 20px 20px 20px 20px;
+   
+}
+.sidebar_list a {
+    justify-content: center;
+    transition: 0.4s;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffffff;
+}
+.username{
+    font-size: 30px;
+    color: #ffffff;
+
+}
+.sidebar_list a:hover{
+    justify-content: center;
+    color: #ffffff;
+    text-align: center;
+}
+.sidebar_list a.active{
+    justify-content: center;
+    color: #ffffff;
+    text-align: center;
+
+}
+/*NAvbar end*/
+
+
+
+/*LOGIN START*/
+.login_form form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: column;
+}
+.login_inner{
+    background: #fff;
+    
+    border-radius: 10px;
+    max-width: 450px;
+    margin: 10% auto;
+    padding: 10px 15px;
+}   
+/* .title{
+    text-align: center;
+} */
+.form_group{
+    display: flex;
+    margin-bottom: 0px;
+    flex-direction: column;
+    text-align: left;
+    align-items: center;
+    position: relative;
+}
+.form_group img{
+    width: 20px;
+    position: absolute;
+    cursor: pointer;
+    right: 10px;
+    z-index: 11;
+    top: 10px;
+}
+.form_group label{
+    width: 100%;
+    margin-bottom: 5px;
+    text-indent: 10px;
+
+}
+.form_group input{
+    width: 100%;
+    border: 1px solid rgb(112, 112, 112);
+    border-radius: 10px;
+    text-indent: 10px;
+    height: 35px;
+
+}
+.login_form button , .register_form button{
+    background: none;
+    border: 1px solid #000;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.4s;
+    margin-bottom: 30px;
+    height: 35px;
+
+}
+.login_form button:hover ,.register_form button:hover{
+    background: #000;
+    color: #fff;
+}
+.form_group_password{
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+
+}
+
+.login_icons {
+    margin-bottom: 50px;
+    text-align: center;
+}
+.login_icons .icons_link{
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+.login_icons img{
+    width: 25px;
+    cursor: pointer;
+}
+/*LOGIN END*/
+
+/*POSTS START*/
+.postCreate_inner{
+    margin: 20% auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+.postCreate_inner form{
+    display: flex;
+    flex-direction: column;
+
+}
+.postCreate_inner form input ,.postCreate_inner form textarea {
+    width: 100%;
+    border: 1px solid rgb(112, 112, 112);
+    border-radius: 10px;
+    text-indent: 10px;
+    height: 35px;
+    resize: none;
+}
+.postCreate_inner form textarea{
+    height: auto;
+}
+.postCreate_inner form label{
+    margin-bottom: 5px;
+    display: block;
+}
+.postCreate_inner .post_form_group{
+    margin-bottom: 20px;
+}
+.postCreate_inner form button{
+    width: 20%;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+
+.postCreate_inner .image_input {
+    border: none;
+}
+
+/* Styling for the custom file input */
+.post_form_group {
+    position: relative;
+}
+
+.post_form_group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.post_form_group input[type="file"] + label {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.post_form_group input[type="file"] + label:hover {
+    background-color: #0056b3;
+}
+
+.post_form_group input[type="file"]:focus + label {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+.post{
+    border-bottom: 1px solid #666;
+}
+/*POSTS END*/
+
+
+
+/*MAIN START*/
+.main_posts_inner{
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+.main_posts_inner .post .post_inner{
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.post_details .post_inner{
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.post_image_banner{
+    width: 450px;
+}
+.main_posts_inner .post .post_image_banner img , .post_details .post_image_banner img {
+    border-radius: 20px;
+    object-fit: cover;
+    width: 100%;
+}
+.reactions{
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.reaction-button {
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+    background: none; /* Remove background */
+    font-size: inherit; /* Use the default font size */
+    /* Add any other styles you may need */
+}
+
+.reactions button.active{
+    background: #1C274C;
+}
+.reactions img{
+    width: 25px;
+    cursor: pointer;
+}
+.reactions img path{
+    fill: #ffff !important;
+    width: 25px;
+    cursor: pointer;
+}
+.delete button{
+    padding: 10px 15px;
+    font-size: 20px;
+    color: #fff;
+    background: rgb(168, 9, 9);
+    border-radius: 10px;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: 10px;
+    border: none;
+}
+.delete button:hover{
+    background: red;
+}
+/*MAIN END*/
+
+/*post_details start*/
+.post_details {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(228, 2, 2, 0.1);
+    margin-top: 150px;
+}
+
+.post_details h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.post_details p {
+    color: #666;
+}
+
+/* Reactions Styles */
+
+
+/* Comments Styles */
+.comments-section {
+    margin-top: 20px;
+}
+
+.comments-section h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.comments-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.comments-section li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.comments-section p {
+    margin: 5px 0;
+}
+
+/* Add Comment Form Styles */
+.add-comment {
+    margin-top: 20px;
+}
+
+.add-comment textarea {
+    width: 98%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    resize: none;
+}
+
+.add-comment button {
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+/*post_details end*/
+
+
+
+/*ERROR*/
+#error-message, .error , .error-message, .errorConfirm{
+    color: red;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/*ERROR*/
+
+.btn_table{
+    display: flex;
+    gap: 10px;
+}
+.green{
+    cursor: pointer;
+    background: #27ae60;
+    border-radius: 10px;
+    border: 1px solid #27ae60;
+}
+.red{
+    cursor: pointer;
+    background: red;
+    border-radius: 10px;
+    border: 1px solid red;
+}
+select{
+    background: none;
+    border-radius: 20px;
+    border: 1px solid #000;
+    padding: 10px;
+    cursor: pointer;
+    background: white;
+    margin-left: 600px;
+
+
+}
+.filter{
+    display: flex;
+    align-items: center;
+}
+.filter button{
+    cursor: pointer;
+    border: 1px solid rgb(246, 246, 246);
+    background: white;
+    text-align: left;
+    padding: 10px;
+    border-radius: 20px;
+    transition: 0.4s;
+}
+.moderator_btn{
+    cursor: pointer;
+    border: 1px solid rgb(246, 246, 246);
+    padding: 10px;
+    border-radius: 20px;
+    transition: 0.4s;
+    margin-left: 20px;
+}
+.moderator_btn{
+    margin-left: 0;
+    margin-top: 20px;
+}
+.filter button:hover{
+    color: #fff;
+    background: #000;
+}
+.categories{
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    color: white
+    
+}
+.my-posts-heading {
+    color: white;
+}
+.apply{
+    color: white
+
+}
+
+.post_btns{
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    margin-top: 10px;
+ 
+}
+.comment_admin_btns{
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    margin-top: 10px;
+}
+.post_btns button, .comment_admin_btns button{
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    color: #fff;
+    border:  1px solid #ffffff;
+    cursor: pointer;
+}
+
+h2 {
+    font-size: 2.8em;
+}
+
+.links {
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.more {
+    display: block;
+    width: 88px;
+    padding: 5px 5px;
+    margin-right: 10px;
+    background: #222222;
+    border-radius: 8px;
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+}
+
+.post .meta {
+    margin-bottom: 30px;
+    padding: 10px 0px 0px 0px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.post .meta .date, .comment .meta .date  {
+    float: left;
+}
+
+.post .meta .posted, .comment .meta .posted  {
+    float: right;
+}
+
+.post .entry, .comment .entry {
+    width: 100%;
+    padding: 0px 0px 40px 0px;
+    text-align: justify;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+

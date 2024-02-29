@@ -1,0 +1,105 @@
+{{template "header"}}
+
+
+<div class="sidebar">
+    <div class="sidebar_inner">
+        
+        
+        <div class="sidebar_list">
+            {{if .Username}}
+                
+                <a href="/my_posts">My Posts</a>
+                <a href="/liked_posts">Liked Posts</a>
+                <a href="/createPost">Create Post</a>
+                <a href="/exit">Exit</a>
+            {{else}}
+                <a href="/login">Sign in</a>
+
+                
+            {{end}}
+        </div>
+        
+    </div>
+</div>
+<div class="postCreate">
+<div class="container">
+    <div class="postCreate_inner">
+        <form action="/createPost" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <div class="post_form_group">
+                <label >Title of Post:</label>
+                <p id="title-error" class="error-message"></p>
+
+                <input type="text" placeholder="Title" name="title"id="title">
+            </div>
+            <div class="post_form_group">
+                <label >Text of Post:</label>
+                <p id="content-error" class="error-message"></p>
+                <textarea name="content"  cols="30" rows="10" id="content"></textarea>
+
+            </div>
+            <div class="post_form_group">
+                <label >Category of Post:</label>
+                <select id="category" name="category">
+                    <option value="none">None</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Other">Other</option>
+                </select>
+
+            </div>
+            <div class="error">{{.Error}}</div>
+            <button type="submit" id="create-post-button" disabled>Create Post</button>
+        </form>
+    </div>
+</div>
+</div>
+
+<script>
+const titleInput = document.getElementById("title");
+const contentInput = document.querySelector("#content");
+const categorySelect = document.getElementById("category");
+const createPostButton = document.getElementById("create-post-button");
+
+// Error messages
+const titleError = document.getElementById("title-error");
+const contentError = document.getElementById("content-error");
+function isValidTitle(title) {
+        
+        return title.trim().length >0;
+}
+
+function isValidContent(contentInputText) {
+        return contentInputText.trim().length >0;
+}
+// Validation event listeners
+titleInput.addEventListener("input", () => {
+    const isValid = isValidTitle(titleInput.value);
+    titleError.textContent = isValid ? "" : "Title is required";
+    validateForm();
+});
+
+
+contentInput.addEventListener("input", () => {
+    const isValid = isValidContent(contentInput.value);
+    contentError.textContent = isValid ? "" : "Content is required";
+    validateForm();
+});
+categorySelect.addEventListener("change", () => {
+    validateForm();
+});
+
+function validateForm() {
+    const titleValid = isValidTitle(titleInput.value);
+    const contentValid = isValidContent(contentInput.value);
+    const categoryValid = categorySelect.value !== "none";
+    const formValid = titleValid && contentValid && categoryValid;
+
+    createPostButton.disabled = !formValid;
+}
+
+</script>
+<script src="/static/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <title>Forum</title>
+  </head>
+  <style></style>
+  <body>
+    <div class="login">
+      <div class="login_inner">
+        <div class="title">
+          <h1>Register</h1>
+        </div>
+        <div class="register_form">
+          <form action="/register" method="POST">
+            <div class="form_group">
+              <label>Username:</label>
+              <input type="text" name="username" placeholder="Username" id="username" />
+              <span class="error" id="username-error" ></span>
+            </div>
+            <div class="form_group">
+              <label>Email</label>
+              <input type="text" name="email" placeholder="Email" id="email" />
+              <span class="error" id="email-error"></span>
+            </div>
+            <div class="form_group">
+              <label>Password:</label>
+              <div class="form_group_password">
+                <input
+                  type="password"
+                class="passwordInput"
+
+                  name="password"
+                  placeholder="Password"
+                  id="password"
+                />
+                <img class="eye" src="/static/eye.svg" alt="" />
+              </div>
+              <span class="error" id="password-error"></span>
+            </div>
+            <div id="error-message">{{.ErrorMessage}}</div>
+            <button class="btn" id="register-button" disabled>Enter</button>
+          </form>
+          <!-- <div class="login_icons">
+            <img src="/static/Icons/git.svg" alt="" />
+            <img src="/static/Icons/google.svg" alt="" />
+          </div> -->
+          <a href="/login">Already a USER?</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      let closeEye = document.querySelectorAll(".eye");
+      let passWord = document.querySelectorAll(".passwordInput");
+      let closeEyeArray = Array.from(closeEye);
+      let passWordArray = Array.from(passWord);
+
+      closeEyeArray.map((elem, closeIndex) => {
+        elem.addEventListener("click", (e) => {
+          passWordArray.map((inputElem, index) => {
+            if (inputElem.type === "password" && closeIndex == index) {
+              inputElem.type = "text"; // Change type to text
+            } else if (inputElem.type === "text" && closeIndex == index) {
+              inputElem.type = "password"; // Change type back to password
+            }
+          });
+        });
+      });
+
+        // Validation functions
+    function isValidEmail(email) {
+        // Use a regular expression to validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function isValidPassword(password) {
+        return password.length >= 6 && password.length <= 30;
+    }
+
+    function isValidUsername(username) {
+        return username.trim() !== "";
+    }
+
+    // Elements
+    const usernameInput = document.getElementById("username");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const registerButton = document.getElementById("register-button");
+
+    // Error messages
+    const usernameError = document.getElementById("username-error");
+    const emailError = document.getElementById("email-error");
+    const passwordError = document.getElementById("password-error");
+
+    // Validation event listeners
+    usernameInput.addEventListener("input", () => {
+        const isValid = isValidUsername(usernameInput.value);
+        usernameError.textContent = isValid ? "" : "Username is required";
+        validateForm();
+    });
+
+    emailInput.addEventListener("input", () => {
+        const isValid = isValidEmail(emailInput.value);
+        emailError.textContent = isValid ? "" : "Enter a valid email address";
+        validateForm();
+    });
+
+    passwordInput.addEventListener("input", () => {
+        const isValid = isValidPassword(passwordInput.value);
+        passwordError.textContent = isValid ? "" : "Password must be 6 to 30 characters long";
+        validateForm();
+    });
+
+    // Validate the entire form
+    function validateForm() {
+        const usernameValid = isValidUsername(usernameInput.value);
+        const emailValid = isValidEmail(emailInput.value);
+        const passwordValid = isValidPassword(passwordInput.value);
+        const formValid = usernameValid && emailValid && passwordValid;
+
+        registerButton.disabled = !formValid;
+    }
+    </script>
+    <!-- <script src="/static/script.js"></script> -->
+
+  </body>
+</html>

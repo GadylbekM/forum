@@ -1,0 +1,103 @@
+
+{{template "header"}}
+
+<div class="sidebar">
+    <div class="sidebar_inner">
+       
+        
+        <div class="sidebar_list">
+            {{if eq .Username "Guest"}}
+            <a href="/login">Sign in</a>
+            
+
+    {{else}}
+            
+            <a href="/my_posts">My Posts</a>
+            <a href="/liked_posts">Liked Posts</a>
+            <a href="/createPost">Create Post</a>
+            <a href="/exit">Exit</a>
+    {{end}}
+        </div>
+        
+    </div>
+</div>
+<div class="main_posts">
+    <div class="container">
+
+        <div class="main_posts_inner">
+            {{if (eq (len .Posts) 0)}}
+            <p>You haven't created any posts yet.</p>
+        {{else}}
+            {{range .Posts}}
+            <div class="post">
+                <div class="edit_btn">
+                    <a href="/edit_post/?id={{.PostId}}">
+                        Edit Post
+                    </a>
+                </div>
+                <div class="post_inner">
+                    <div class="post_left">
+                       
+                    </div>
+                    <div class="post_right">
+                        <h3>{{.Title}}</h3>
+                        <p><strong>Category:</strong> {{.Category}}</p>
+                        <p><strong>Creation Date:</strong>  {{.CreationDate.Format "2006-01-02 15:04:05"}}</p>
+                        <p id="truncated-content">{{.Content}}</p>
+                        <div class="reactions">
+                            <form action="/like_dislike_post" method="POST">
+                                {{.Likes}}
+                                <input type="hidden" name="post_id" value="{{.PostId}}">
+                                <input type="hidden" name="action" value="like">
+                                <button class="reaction-button" type="submit">
+                                    <img src="/static/Icons/like.svg" alt="Like">
+                                </button>
+                            </form>
+                            
+                            <form action="/like_dislike_post" method="POST">
+                                {{.Dislikes}}
+    
+                                <input type="hidden" name="post_id" value="{{.PostId}}">
+                                <input type="hidden" name="action" value="dislike">
+                                <button class="reaction-button" type="submit">
+                                    <img src="/static/Icons/dislike.svg" alt="Dislike">
+                                </button>
+                            </form>
+                        </div>
+                        <a href="post/?id={{.PostId}}">Read More</a>
+                        <form action="/my_posts" method="POST" class="delete">
+                            <input type="hidden" name="id" value="{{.PostId}}">
+                            <input type="hidden" name="delete_method" value="DELETE">
+                            <button>Delete Post</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+               
+           
+           
+            {{end}}
+    {{end}}
+
+
+        </div>
+       
+    
+    </div>
+</div><script>
+    const contentElements = document.querySelectorAll("#truncated-content");
+
+// Iterate through each content element
+contentElements.forEach(contentElement => {
+   const content = contentElement.textContent;
+   if (content.length > 100) {
+       const truncatedContent = content.slice(0, 100) + "...";
+       contentElement.textContent = truncatedContent;
+   }
+});
+
+</script>
+<script src="/static/script.js"></script>
+
+</body>
+</html>

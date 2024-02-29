@@ -1,0 +1,137 @@
+{{template "header"}}
+
+<div class="sidebar">
+    <div class="sidebar_inner">
+        
+        <div class="sidebar_list">
+            {{if eq .Name "Guest"}}
+            <a href="/login">Sign in</a>
+            
+
+    {{else}}
+            
+            <a href="/my_posts">My Posts</a>
+            <a href="/liked_posts">Liked Posts</a>
+            <a href="/createPost">Create Post</a>
+            <a href="/exit">Exit</a>
+    {{end}}
+        </div>
+        
+    </div>
+</div>
+<div class="about">
+    <div class="container">
+        <div class="post_details">
+            <div class="post_inner">
+                <div class="post_left">
+                </div>
+                <div class="post_right">
+                    <h2>{{.Post.Title}}</h2>
+                    <p><strong>Category:</strong> {{.Post.Category}}</p>
+                    <p><strong>Creation Date:</strong> {{.Post.CreationDate.Format "2006-01-02 15:04:05"}}</p>
+                    <p>{{.Post.Content}}</p>
+                    <div class="reactions">
+                        <form action="/like_dislike_post" method="POST">
+                            {{.Post.Likes}}
+                            <input type="hidden" name="post_id" value="{{.Post.PostId}}">
+                            <input type="hidden" name="owner_id" value="{{.Post.UserId}}">
+
+                            <input type="hidden" name="action" value="like">
+                            <button class="reaction-button" type="submit">
+                                <button class="reaction-button" type="submit">👍</button>
+                            </button>
+                        </form>
+                        
+                        <form action="/like_dislike_post" method="POST">
+                            {{.Post.Dislikes}}
+                            <input type="hidden" name="owner_id" value="{{.Post.UserId}}">
+                            <input type="hidden" name="post_id" value="{{.Post.PostId}}">
+                            <input type="hidden" name="action" value="dislike">
+                            <button class="reaction-button" type="submit" >
+                                <button class="reaction-button" type="submit">👎</button>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+               
+            </div>
+            
+         
+        
+            <div class="comments-section">
+                <h3>Comments</h3>
+                <ul>
+                    {{range .Comments}}
+                            <p><strong>{{.Username}}</strong> - <span class="comment-date">{{.CreationDate.Format "2006-01-02 15:04:05"}}</span></p>
+                            <p>{{.Content}}</p>
+                            <div class="reactions">
+                                <form action="/like_dislike_comment" method="POST">
+                                    {{.Likes}}
+                                    <input type="hidden" name="comment_id" value="{{.CommentId}}">
+                                    <input type="hidden" name="post_id" value="{{.PostId}}">
+
+                                    <input type="hidden" name="owner_id" value="{{.UserId}}">
+                                    <input type="hidden" name="action" value="like">
+                                    <button class="reaction-button" type="submit">
+                                        <button class="reaction-button" type="submit">👍</button>
+                                    </button>
+                                </form>
+                                
+                                <form action="/like_dislike_comment" method="POST">
+                                    {{.Dislikes}}
+                
+                                    <input type="hidden" name="comment_id" value="{{.CommentId}}">
+                                    <input type="hidden" name="action" value="dislike">
+                                    <input type="hidden" name="post_id" value="{{.PostId}}">
+
+                                    <input type="hidden" name="owner_id" value="{{.UserId}}">
+                                    <button class="reaction-button" type="submit" >
+                                        <button class="reaction-button" type="submit">👎</button>
+                                    </button>
+                                </form>
+                            </div>
+                    {{end}}
+                </ul>
+            </div>
+            <p id="content-error" class="error-message"></p>
+
+            <form action="/add_comment" method="POST" class="add-comment" onsubmit="return validateForm()">
+                <input type="hidden" name="post_id" value="{{.Post.PostId}}">
+                <input type="hidden" name="user_id" value="{{.UserId}}">
+
+                <textarea name="comment_text" rows="4" cols="50" placeholder="Add a comment" id="comment_area"></textarea>
+                <button id="comment-post-button" disabled>Add Comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const commentInput = document.getElementById("comment_area")
+    const contentError = document.getElementById("content-error");
+    const createPostButton = document.getElementById("comment-post-button");
+function isValidContent(contentInputText) {
+        let newWord = contentInputText.trim();
+        return newWord.length >0 ;
+}
+commentInput.addEventListener("input", () => {
+    const isValid = isValidContent(commentInput.value);
+    contentError.textContent = isValid ? "" : "Content is required";
+    validateForm();
+});
+
+function validateForm() {
+    const contentValid = isValidContent(commentInput.value);
+
+    const formValid =  contentValid ;
+
+    createPostButton.disabled = !formValid;
+}
+
+</script>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

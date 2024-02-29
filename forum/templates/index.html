@@ -1,0 +1,94 @@
+{{template "header"}}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="main_posts">
+    <div class="container">
+ 
+        <form action="/filtered-posts" method="GET">
+            <div class="filter">
+                <div class="sidebar">
+                    <div class="sidebar_inner">
+                        <div class="sidebar_list">
+                            {{if eq .Name "Guest"}}
+                                <a href="/login">Sign in</a>
+                                
+                            {{else}}
+                                
+                                <a href="/my_posts">My Posts</a>
+                                <a href="/liked_posts">Liked Posts</a>
+                                <a href="/createPost">Create Post</a>
+                                <a href="/exit">Exit</a>
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+                <div class="categories">
+                    <select name="category" id="category">
+                        <option value="none">None</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <button type="submit">Apply Filter</button>
+            </div>
+        </form>
+        <div class="main_posts_inner">
+            {{if (eq (len .Posts) 0)}}
+                <p>Nothing here yet</p>
+            {{else}}
+                {{range .Posts}}
+                    <div class="post">
+                        <div class="post_inner">
+                            <div class="post_left">
+                            </div>
+                            <div class="post_right">
+                                <h3>{{.Title}}</h3>
+                                <p><strong>#</strong> {{.Category}}</p>
+                                <span class="posted">Posted by {{.Username}}</span>
+                                <p id="truncated-content">{{.Content}}</p>
+                                <p class="links"><a href="post/?id={{.PostId}}" class="more">Show</a></p>
+                                <div class="reactions">
+                                    <form action="/like_dislike_post" method="POST">
+                                        {{.Likes}}
+                                        <input type="hidden" name="post_id" value="{{.PostId}}">
+                                        <input type="hidden" name="owner_id" value="{{.UserId}}">
+                                        <input type="hidden" name="action" value="like">
+                                        <button class="reaction-button" type="submit">👍</button>
+                                    </form>
+                                    <form action="/like_dislike_post" method="POST">
+                                        {{.Dislikes}}
+                                        <input type="hidden" name="post_id" value="{{.PostId}}">
+                                        <input type="hidden" name="owner_id" value="{{.UserId}}">
+                                        <input type="hidden" name="action" value="dislike">
+                                        <button class="reaction-button" type="submit">👎</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{end}}
+            {{end}}
+        </div>
+    </div>
+</div>
+<script>  
+    const contentElements = document.querySelectorAll("#truncated-content");
+
+    // Iterate through each content element
+    contentElements.forEach(contentElement => {
+        const content = contentElement.textContent;
+        if (content.length > 100) {
+            const truncatedContent = content.slice(0, 100) + "...";
+            contentElement.textContent = truncatedContent;
+        }
+    });
+</script>
+<script src="/static/script.js"></script>
+</body>
+</html>

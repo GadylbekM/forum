@@ -1,0 +1,64 @@
+{{template "header"}}
+
+
+<div class="sidebar">
+    <div class="sidebar_inner">
+        <div class="username">
+            <h6>{{if .Username}}{{.Username}}{{else}}Guest{{end}}</h6>
+        </div>
+        
+        <div class="sidebar_list">
+            {{if .Username}}
+                
+                <a href="/my_posts">My Posts</a>
+                <a href="/liked_posts">Liked Posts</a>
+                <a href="/createPost">Create Post</a>
+                <a href="/exit">Exit</a>
+            {{else}}
+                <a href="/login">Sign in</a>
+
+                
+            {{end}}
+        </div>
+        
+    </div>
+</div>
+<div class="postCreate">
+<div class="container">
+    <div class="postCreate_inner">
+        <p id="content-error" class="error-message"></p>
+
+        <form action="/comment/?id={{.CommentId}}" method="POST"  onsubmit="return validateForm()">
+            <textarea name="comment_text" rows="4" cols="50" placeholder="Edit a comment" id="comment_area"></textarea>
+            <button id="comment-post-button" type="submit" disabled>Add Comment</button>
+        </form>
+    </div>
+</div>
+</div>
+<script>
+    const commentInput = document.getElementById("comment_area")
+    const contentError = document.getElementById("content-error");
+    const createPostButton = document.getElementById("comment-post-button");
+function isValidContent(contentInputText) {
+        let newWord = contentInputText.trim();
+        return newWord.length >0 ;
+}
+commentInput.addEventListener("input", () => {
+    const isValid = isValidContent(commentInput.value);
+    contentError.textContent = isValid ? "" : "Content is required";
+    validateForm();
+});
+
+function validateForm() {
+    const contentValid = isValidContent(commentInput.value);
+
+    const formValid =  contentValid ;
+
+    createPostButton.disabled = !formValid;
+}
+</script>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
