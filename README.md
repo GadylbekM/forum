@@ -19,7 +19,7 @@ _To use this program, follow these steps:_
 
 _To clone, use this command:_
 ```
-[git@git.01.alem.school:mmedeuba/forum-moderation.git](https://github.com/GadylbekM/forum.git)
+https://github.com/GadylbekM/forum.git
 ```
 # How to run?
 _Run the program using the following command:_
